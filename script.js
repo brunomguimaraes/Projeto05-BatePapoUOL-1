@@ -105,3 +105,93 @@ function toggleSidebar () {
     const panel = document.querySelector(".chat-options");
     panel.classList.toggle("hide")
 }
+
+getUsers();
+
+setInterval(getUsers, 10000);
+
+function getUsers () {
+    const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/participants");
+
+    promise.then(printUsers);
+}
+
+let testee;
+
+function printUsers (users) {
+    const user = document.querySelector(".active-users");
+    const userSelected = document.querySelector(".active-users .selected .name");
+    testee = userSelected;
+    if (userSelected.innerText === "Todos") {
+        user.innerHTML = 
+        `<div class="user choice selected" onclick="selectRecipient(this, 'Todos')">
+            <ion-icon name="people"></ion-icon>
+            <p class="name">Todos</p>
+            <img src="media/Checkmark.png" alt="Checkmark">
+        </div>`;
+    } else {
+        user.innerHTML = 
+        `<div class="user choice" onclick="selectRecipient(this, 'Todos')">
+            <ion-icon name="people"></ion-icon>
+            <p class="name">Todos</p>
+            <img src="media/Checkmark.png" alt="Checkmark">
+        </div>`;
+    }
+    
+
+    for (let i = 0; i < users.data.length; i++) {
+        
+        if (userSelected.innerText === users.data[i].name) {
+            user.innerHTML +=
+            `<div class="user choice selected" onclick="selectRecipient(this, '${users.data[i].name}')">
+                <ion-icon name="person-circle"></ion-icon>
+                <p class="name">${users.data[i].name}</p>
+                <img src="media/Checkmark.png" alt="Checkmark">
+            </div>`
+        } else {
+            user.innerHTML +=
+            `<div class="user choice" onclick="selectRecipient(this, '${users.data[i].name}')">
+                <ion-icon name="person-circle"></ion-icon>
+                <p class="name">${users.data[i].name}</p>
+                <img src="media/Checkmark.png" alt="Checkmark">
+            </div>`
+        }
+        
+    }
+}
+
+function selectRecipient (option, user) {
+    
+    const userSelected = document.querySelector(".active-users .selected");
+    if (userSelected !== null) {
+        userSelected.classList.remove("selected");
+    }
+    option.classList.add("selected");
+    recipient = user;
+
+    inputText();
+
+}
+
+function selectMessageType (option, type) {
+    const typeSelected = document.querySelector(".messageType .selected");
+    if (typeSelected !== null) {
+        typeSelected.classList.remove("selected");
+    }
+    option.classList.add("selected");
+    messageType = type;
+
+    inputText();
+}
+
+function inputText () {
+    const receiver = document.querySelector(".receiver");
+    if (messageType === "message") {
+        receiver.innerHTML = `Enviando para ${recipient} (público)`
+    }
+    if (messageType === "private_message") {
+        receiver.innerHTML = `Enviando para ${recipient} (reservadamente)`
+    }
+
+    
+}
