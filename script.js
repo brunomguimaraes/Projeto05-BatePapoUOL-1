@@ -1,6 +1,43 @@
 getMessages();
 setInterval(getMessages, 3000);
 
+function askUserName () {
+    userName = document.querySelector(".enter-name").value;
+    const promise = axios.post(
+        "https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/participants", 
+        {
+            name: userName
+        }
+    );
+
+    const enterScreen = document.querySelector(".enter-screen");
+    enterScreen.classList.add("hide");
+
+    promise.then(setInterval(keepConection, 5000));
+    promise.catch(askUserNameError);
+
+}
+
+function askUserNameError (error) {
+    const status = error.response.status;
+    const enterScreen = document.querySelector(".enter-screen");
+
+    if (status === 400) {
+        enterScreen.classList.remove("hide");
+    }
+}
+
+function keepConection () {
+    const promise = axios.post(
+        "https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/status",
+        {
+            name: userName
+        }
+    );
+
+    
+}
+
 function getMessages () {
     const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/messages");
     promise.then(printMessages);
