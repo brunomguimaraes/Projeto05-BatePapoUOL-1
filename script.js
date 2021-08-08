@@ -98,3 +98,10 @@ function sendMessage () {
     promise.then(getMessages);
     promise.catch(window.location.reload);
 }
+
+function toggleSidebar () {
+    const background = document.querySelector(".blur-background");
+    background.classList.toggle("hide")
+    const panel = document.querySelector(".chat-options");
+    panel.classList.toggle("hide")
+}
