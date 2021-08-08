@@ -1,3 +1,8 @@
+let userName;
+let recipient = "Todos";
+let messageType = "message";
+
+
 getMessages();
 setInterval(getMessages, 3000);
 
@@ -77,4 +82,19 @@ function printMessages (messages) {
         }
         
     }
+}
+
+function sendMessage () {
+    const message = document.querySelector(".text-message").value;
+    const promise = axios.post(
+        "https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/messages",
+        {
+            from: userName,
+            to: recipient,
+            text: message,
+            type: messageType
+        }
+    );
+    promise.then(getMessages);
+    promise.catch(window.location.reload);
 }
