@@ -1,4 +1,5 @@
 getMessages();
+setInterval(getMessages, 3000);
 
 function getMessages () {
     const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/messages");
