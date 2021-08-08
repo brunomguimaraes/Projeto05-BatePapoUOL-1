@@ -69,7 +69,7 @@ function printMessages (messages) {
             </li>`;
         }
         if (messages.data[i].type === "private_message") {
-            if (to === userName) {
+            if (to === userName || from === userName) {
                 chat.innerHTML += `
                 <li class="message red">
                     <span class="time">${time}</span> <span class="user">${from}</span> reservadamente para <span class="user">${to}</span>: ${text}
@@ -95,6 +95,7 @@ function sendMessage () {
             type: messageType
         }
     );
+    document.querySelector(".text-message").value = "";
     promise.then(getMessages);
     promise.catch(window.location.reload);
 }
@@ -122,7 +123,7 @@ function printUsers (users) {
     const user = document.querySelector(".active-users");
     const userSelected = document.querySelector(".active-users .selected .name");
     testee = userSelected;
-    if (userSelected.innerText === "Todos") {
+    if ( userSelected === null || userSelected.innerText === "Todos") {
         user.innerHTML = 
         `<div class="user choice selected" onclick="selectRecipient(this, 'Todos')">
             <ion-icon name="people"></ion-icon>
@@ -141,22 +142,30 @@ function printUsers (users) {
 
     for (let i = 0; i < users.data.length; i++) {
         
-        if (userSelected.innerText === users.data[i].name) {
-            user.innerHTML +=
-            `<div class="user choice selected" onclick="selectRecipient(this, '${users.data[i].name}')">
-                <ion-icon name="person-circle"></ion-icon>
-                <p class="name">${users.data[i].name}</p>
-                <img src="media/Checkmark.png" alt="Checkmark">
-            </div>`
-        } else {
+        if (userSelected === null) {
             user.innerHTML +=
             `<div class="user choice" onclick="selectRecipient(this, '${users.data[i].name}')">
                 <ion-icon name="person-circle"></ion-icon>
                 <p class="name">${users.data[i].name}</p>
                 <img src="media/Checkmark.png" alt="Checkmark">
             </div>`
+        } else {
+            if (userSelected.innerText === users.data[i].name) {
+                user.innerHTML +=
+                `<div class="user choice selected" onclick="selectRecipient(this, '${users.data[i].name}')">
+                    <ion-icon name="person-circle"></ion-icon>
+                    <p class="name">${users.data[i].name}</p>
+                    <img src="media/Checkmark.png" alt="Checkmark">
+                </div>`
+            } else {
+                user.innerHTML +=
+                `<div class="user choice" onclick="selectRecipient(this, '${users.data[i].name}')">
+                    <ion-icon name="person-circle"></ion-icon>
+                    <p class="name">${users.data[i].name}</p>
+                    <img src="media/Checkmark.png" alt="Checkmark">
+                </div>`
+            }
         }
-        
     }
 }
 

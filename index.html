@@ -12,7 +12,7 @@
 
     <div class="enter-screen">
         <img src="media/logo.png" alt="Logo">
-        <input class="enter-name" type="text" placeholder="Digite seu nome">
+        <input class="enter-name" type="text" placeholder="Digite seu nome" onkeydown="if (event.keyCode === 13) {askUserName()}">
         <button class="enter" onclick="askUserName()">Entrar</button>
 
     </div>
@@ -41,7 +41,7 @@
     </ul>
 
     <div class="message-box">
-        <input type="text" placeholder="Escreva aqui..." class="text-message">
+        <input type="text" placeholder="Escreva aqui..." class="text-message" onkeydown="if (event.keyCode === 13) {sendMessage()}">
         <p class="receiver">Enviando para Maria (reservadamente)</p>
         <ion-icon name="paper-plane-outline" onclick="sendMessage()"></ion-icon>
     </div>
