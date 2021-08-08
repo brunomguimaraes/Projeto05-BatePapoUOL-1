@@ -9,18 +9,75 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
+    <div class="enter-screen hide">
+        <img src="media/logo.png" alt="Logo">
+        <input class="enter-name" type="text" placeholder="Digite seu nome">
+        <button class="enter" onclick="askUserName()">Entrar</button>
+
+    </div>
     
     <div class="top-bar">
         <img src="media/logo.png" alt="Logo">
-        <ion-icon name="people"></ion-icon>
+        <ion-icon name="people" onclick="toggleSidebar()"></ion-icon>
     </div>
 
-    <div class="chat"></div>
+    <ul class="chat">
+        <li class="message gray"><span class="time">tempo</span> <span class="user">Joao</span> entra na sala...</li>
+        <li class="message white"><span class="time">tempo</span> <span class="user">Joao</span> para <span class="user">todos</span>: Bom dia</li>
+        <li class="message white"><span class="time">tempo</span> <span class="user">Maria</span> para <span class="user">João</span>: Oi João :)</li>
+        <li class="message red"><span class="time">tempo</span> Reservadamentessssssssssssssssss mas se voce fizzer fizr fizer fizer fizer fizer</li>
+        <li class="message gray"><span class="time">tempo</span> <span class="user">Maria</span> sai da sala</li>
+        <li class="message gray"><span class="time">tempo</span> <span class="user">Joao</span> entra na sala...</li>
+        <li class="message white"><span class="time">tempo</span> <span class="user">Joao</span> para <span class="user">todos</span>: Bom dia</li>
+        <li class="message white"><span class="time">tempo</span> <span class="user">Maria</span> para <span class="user">João</span>: Oi João :)</li>
+        <li class="message red"><span class="time">tempo</span> Reservadamentessssssssssssssssss mas se voce fizzer fizr fizer fizer fizer fizer</li>
+        <li class="message gray"><span class="time">tempo</span> <span class="user">Maria</span> sai da sala</li>
+        <li class="message gray"><span class="time">tempo</span> <span class="user">Joao</span> entra na sala...</li>
+        <li class="message white"><span class="time">tempo</span> <span class="user">Joao</span> para <span class="user">todos</span>: Bom dia</li>
+        <li class="message white"><span class="time">tempo</span> <span class="user">Maria</span> para <span class="user">João</span>: Oi João :)</li>
+        <li class="message red"><span class="time">tempo</span> Reservadamentessssssssssssssssss mas se voce fizzer fizr fizer fizer fizer fizer</li>
+        <li class="message gray"><span class="time">tempo</span> <span class="user">Maria</span> sai da sala</li>
+    </ul>
 
     <div class="message-box">
-        <input type="text" placeholder="Escreva aqui...">
-        <ion-icon name="paper-plane-outline"></ion-icon>
+        <input type="text" placeholder="Escreva aqui..." class="text-message">
+        <p class="receiver">Enviando para Maria (reservadamente)</p>
+        <ion-icon name="paper-plane-outline" onclick="sendMessage()"></ion-icon>
     </div>
+
+    <div class="chat-options hide">
+        <p class="section-title">Escolha um contato para enviar mensagem:</p>
+        <div class="active-users box">
+            <div class="user choice selected" onclick="selectRecipient(this, 'Todos')">
+                <ion-icon name="people"></ion-icon>
+                <p class="name">Todos</p>
+                <img src="media/Checkmark.png" alt="Checkmark">
+            </div>
+            <div class="user choice">
+                <ion-icon name="person-circle"></ion-icon>
+                <p>Maria</p>
+                <img src="media/Checkmark.png" alt="Checkmark">
+            </div>
+        </div>
+        <p class="section-title">Escolha a visibilidade:</p>
+        <div class="messageType">
+            <div class="choice selected" onclick="selectMessageType(this, 'message')">
+                <ion-icon name="lock-open"></ion-icon>
+                <p>Público</p>
+                <img src="media/Checkmark.png" alt="Checkmark">
+            </div>
+            <div class="choice" onclick="selectMessageType(this, 'private_message')">
+                <ion-icon name="lock-closed"></ion-icon>
+                <p>Reservadamente</p>
+                <img src="media/Checkmark.png" alt="Checkmark">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="blur-background hide" onclick="toggleSidebar()"></div>
+
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>

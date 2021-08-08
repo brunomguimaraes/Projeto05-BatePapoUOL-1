@@ -1,7 +1,57 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,400&display=swap');
 
 * {
     box-sizing: border-box;
+}
+
+body {
+    background-color: #F3F3F3;
+}
+
+.enter-screen {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 3;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.enter-screen img {
+    width: 130px;
+    height: 92px;
+    margin-top: 72px;
+}
+
+.enter-screen input {
+    width: 260px;
+    height: 55px;
+    font-size: 18px;
+    color: #AEAEAE;
+    display: block;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 4px;
+    border: solid 1px #D7D7D7;
+    margin-top: 92px;
+}
+
+.enter-screen input:focus {
+    outline: none;
+}
+
+.enter-screen .enter {
+    width: 109px;
+    height: 45px;
+    background-color: #E7E7E7;
+    color: #696969;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 15px;
 }
 
 .top-bar {
@@ -27,8 +77,27 @@
 .chat {
     width: 100%;
     height: 100%;
-    background-color: #F3F3F3;
+    padding: 100px 0;
 
+}
+
+.chat .message {
+    width: 100%;
+    height: auto;
+    padding: 15px 10px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+
+
+}
+
+.chat .message .time {
+    color: #AAAAAA;
+}
+
+.chat .message .user {
+    font-weight: 700;
 }
 
 .message-box {
@@ -36,8 +105,6 @@
     height: 80px;
     position: fixed;
     bottom: 0;
-    display: flex;
-    justify-content: space-between;
     background-color: #FFFFFF;
     align-items: center;
     padding: 0 20px;
@@ -47,11 +114,24 @@
 
 }
 
+.message-box .receiver {
+    font-size: 14px;
+    font-weight: 300;
+    margin-top: 10px;
+}
+
+.message-box ion-icon {
+    position: absolute;
+    right: 20px;
+    top: 25px;
+}
+
 .message-box input {
     border: none;
     font-family: 'Roboto', sans-serif;
     color: #000000;
     font-size: 18px;
+    margin-top: 18px;
     
 }
 
@@ -63,4 +143,73 @@
 
 .message-box input:focus {
     outline: none;
+}
+
+.chat-options {
+    height: 100%;
+    width: 69%;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 2;
+    background-color: #FFFFFF;
+    padding: 15px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+}
+
+.chat-options .section-title {
+    padding: 0 15px;
+    font-weight: 700;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.chat-options .choice {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
+    position: relative;
+    
+}
+
+.chat-options .choice ion-icon {
+    font-size: 20px;
+    margin-right: 8px;
+}
+
+.chat-options .choice img {
+    display: none;
+}
+
+.chat-options .selected img {
+    display: initial;  
+    position: absolute;
+    right: 15px;
+}
+
+.hide {
+    display: none
+}
+
+.blur-background {
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.gray {
+    background-color: #DCDCDC;
+}
+
+.red {
+    background-color: #FFDEDE;
+}
+
+.white {
+    background-color: #FFFFFF;
 }
