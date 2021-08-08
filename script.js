@@ -34,7 +34,10 @@ function printMessages (messages) {
                 </li>`;
             }
         }
-
+        if ( i === (messages.data.length - 1)) {
+            const lastMessage = document.querySelector(".message:last-child");
+            lastMessage.scrollIntoView();
+        }
         
     }
 }
