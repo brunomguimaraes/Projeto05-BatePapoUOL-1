@@ -16,10 +16,14 @@ function getUserNameError (error) {
     const enterScreen = document.querySelector(".login-screen");
     if (status === 400) {
         enterScreen.classList.remove("hide");
+        alert("Nome em uso, tente outro");
     }
 }
 
 function startChat () {
+    const enterScreen = document.querySelector(".login-screen");
+    enterScreen.classList.add("hide");
+
     getMessages();
     getUsers();
     setInterval(getMessages, 3000);
@@ -35,9 +39,6 @@ function getUserName () {
             name: userName
         }
     );
-    const enterScreen = document.querySelector(".login-screen");
-    enterScreen.classList.add("hide");
-
     promise.then(startChat);
     promise.catch(getUserNameError);
 }
