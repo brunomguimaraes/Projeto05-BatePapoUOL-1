@@ -118,7 +118,7 @@ function printUsers (users) {
     for (let i = 0; i < users.data.length; i++) {
         if (userSelected === null) {
             user.innerHTML +=
-            `<div class="user option" onclick="selectRecipient(this, '${users.data[i].name}')">
+            `<div class="option" onclick="selectRecipient(this, '${users.data[i].name}')">
                 <ion-icon name="person-circle"></ion-icon>
                 <p class="name">${users.data[i].name}</p>
                 <img src="media/Checkmark.png" alt="Checkmark">
@@ -126,14 +126,14 @@ function printUsers (users) {
         } else {    
             if (userSelected.innerText === users.data[i].name) {
                 user.innerHTML +=
-                `<div class="user option selected" onclick="selectRecipient(this, '${users.data[i].name}')">
+                `<div class="option selected" onclick="selectRecipient(this, '${users.data[i].name}')">
                     <ion-icon name="person-circle"></ion-icon>
                     <p class="name">${users.data[i].name}</p>
                     <img src="media/Checkmark.png" alt="Checkmark">
                 </div>`
             } else {
                 user.innerHTML +=
-                `<div class="user option" onclick="selectRecipient(this, '${users.data[i].name}')">
+                `<div class="option" onclick="selectRecipient(this, '${users.data[i].name}')">
                     <ion-icon name="person-circle"></ion-icon>
                     <p class="name">${users.data[i].name}</p>
                     <img src="media/Checkmark.png" alt="Checkmark">
@@ -145,7 +145,7 @@ function printUsers (users) {
     userSelected = document.querySelector(".active-users .selected .name");
     if ( userSelected === null || userSelected.innerText === "Todos") {
         user.innerHTML = 
-        `<div class="user option selected" onclick="selectRecipient(this, 'Todos')">
+        `<div class="option selected" onclick="selectRecipient(this, 'Todos')">
             <ion-icon name="people"></ion-icon>
             <p class="name">Todos</p>
             <img src="media/Checkmark.png" alt="Checkmark">
@@ -154,7 +154,7 @@ function printUsers (users) {
         inputText();
     } else {
         user.innerHTML = 
-        `<div class="user option" onclick="selectRecipient(this, 'Todos')">
+        `<div class="option" onclick="selectRecipient(this, 'Todos')">
             <ion-icon name="people"></ion-icon>
             <p class="name">Todos</p>
             <img src="media/Checkmark.png" alt="Checkmark">
