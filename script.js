@@ -28,7 +28,7 @@ function startChat () {
     getUsers();
     setInterval(getMessages, 3000);
     setInterval(getUsers, 10000);
-    ;
+    setInterval(keepConection, 5000);
 }
 
 function getUserName () {
