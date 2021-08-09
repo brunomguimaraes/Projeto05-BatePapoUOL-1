@@ -28,7 +28,7 @@ function startChat () {
     getUsers();
     setInterval(getMessages, 3000);
     setInterval(getUsers, 10000);
-    setInterval(keepConection, 5000);
+    ;
 }
 
 function getUserName () {
@@ -84,6 +84,10 @@ function getMessages () {
     promise.then(printMessages);
 }
 
+function reload () {
+    window.location.reload();
+}
+
 function sendMessage () {
     const message = document.querySelector(".text-message").value;
     const promise = axios.post(
@@ -97,7 +101,7 @@ function sendMessage () {
     );
     document.querySelector(".text-message").value = "";
     promise.then(getMessages);
-    promise.catch(window.location.reload);
+    promise.catch(reload);
 }
 
 function inputText () {
