@@ -2,11 +2,32 @@ let userName;
 let recipient = "Todos";
 let messageType = "message";
 
+function keepConection () {
+    const promise = axios.post(
+        "https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/status",
+        {
+            name: userName
+        }
+    );  
+}
 
-getMessages();
-setInterval(getMessages, 3000);
+function getUserNameError (error) {
+    const status = error.response.status;
+    const enterScreen = document.querySelector(".login-screen");
+    if (status === 400) {
+        enterScreen.classList.remove("hide");
+    }
+}
 
-function askUserName () {
+function startChat () {
+    getMessages();
+    getUsers();
+    setInterval(getMessages, 3000);
+    setInterval(getUsers, 10000);
+    setInterval(keepConection, 5000);
+}
+
+function getUserName () {
     userName = document.querySelector(".enter-name").value;
     const promise = axios.post(
         "https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/participants", 
@@ -14,38 +35,11 @@ function askUserName () {
             name: userName
         }
     );
-
-    const enterScreen = document.querySelector(".enter-screen");
+    const enterScreen = document.querySelector(".login-screen");
     enterScreen.classList.add("hide");
 
-    promise.then(setInterval(keepConection, 5000));
-    promise.catch(askUserNameError);
-
-}
-
-function askUserNameError (error) {
-    const status = error.response.status;
-    const enterScreen = document.querySelector(".enter-screen");
-
-    if (status === 400) {
-        enterScreen.classList.remove("hide");
-    }
-}
-
-function keepConection () {
-    const promise = axios.post(
-        "https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/status",
-        {
-            name: userName
-        }
-    );
-
-    
-}
-
-function getMessages () {
-    const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/messages");
-    promise.then(printMessages);
+    promise.then(startChat);
+    promise.catch(getUserNameError);
 }
 
 function printMessages (messages) {
@@ -56,6 +50,7 @@ function printMessages (messages) {
         let to = messages.data[i].to;
         let text = messages.data[i].text;
         let time = messages.data[i].time;
+
         if (messages.data[i].type === "message") {
             chat.innerHTML += `
             <li class="message white">
@@ -79,9 +74,13 @@ function printMessages (messages) {
         if ( i === (messages.data.length - 1)) {
             const lastMessage = document.querySelector(".message:last-child");
             lastMessage.scrollIntoView();
-        }
-        
+        }    
     }
+}
+
+function getMessages () {
+    const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/messages");
+    promise.then(printMessages);
 }
 
 function sendMessage () {
@@ -100,66 +99,40 @@ function sendMessage () {
     promise.catch(window.location.reload);
 }
 
-function toggleSidebar () {
-    const background = document.querySelector(".blur-background");
-    background.classList.toggle("hide")
-    const panel = document.querySelector(".chat-options");
-    panel.classList.toggle("hide")
+function inputText () {
+    const messageStatus = document.querySelector(".message-status");
+    if (messageType === "message") {
+        messageStatus.innerHTML = `Enviando para ${recipient} (público)`
+    }
+    if (messageType === "private_message") {
+        messageStatus.innerHTML = `Enviando para ${recipient} (reservadamente)`
+    }
 }
-
-getUsers();
-
-setInterval(getUsers, 10000);
-
-function getUsers () {
-    const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/participants");
-
-    promise.then(printUsers);
-}
-
-let testee;
 
 function printUsers (users) {
     const user = document.querySelector(".active-users");
-    const userSelected = document.querySelector(".active-users .selected .name");
-    testee = userSelected;
-    if ( userSelected === null || userSelected.innerText === "Todos") {
-        user.innerHTML = 
-        `<div class="user choice selected" onclick="selectRecipient(this, 'Todos')">
-            <ion-icon name="people"></ion-icon>
-            <p class="name">Todos</p>
-            <img src="media/Checkmark.png" alt="Checkmark">
-        </div>`;
-    } else {
-        user.innerHTML = 
-        `<div class="user choice" onclick="selectRecipient(this, 'Todos')">
-            <ion-icon name="people"></ion-icon>
-            <p class="name">Todos</p>
-            <img src="media/Checkmark.png" alt="Checkmark">
-        </div>`;
-    }
+    let userSelected = document.querySelector(".active-users .selected .name");
+    user.innerHTML = "";
     
-
     for (let i = 0; i < users.data.length; i++) {
-        
         if (userSelected === null) {
             user.innerHTML +=
-            `<div class="user choice" onclick="selectRecipient(this, '${users.data[i].name}')">
+            `<div class="user option" onclick="selectRecipient(this, '${users.data[i].name}')">
                 <ion-icon name="person-circle"></ion-icon>
                 <p class="name">${users.data[i].name}</p>
                 <img src="media/Checkmark.png" alt="Checkmark">
             </div>`
-        } else {
+        } else {    
             if (userSelected.innerText === users.data[i].name) {
                 user.innerHTML +=
-                `<div class="user choice selected" onclick="selectRecipient(this, '${users.data[i].name}')">
+                `<div class="user option selected" onclick="selectRecipient(this, '${users.data[i].name}')">
                     <ion-icon name="person-circle"></ion-icon>
                     <p class="name">${users.data[i].name}</p>
                     <img src="media/Checkmark.png" alt="Checkmark">
                 </div>`
             } else {
                 user.innerHTML +=
-                `<div class="user choice" onclick="selectRecipient(this, '${users.data[i].name}')">
+                `<div class="user option" onclick="selectRecipient(this, '${users.data[i].name}')">
                     <ion-icon name="person-circle"></ion-icon>
                     <p class="name">${users.data[i].name}</p>
                     <img src="media/Checkmark.png" alt="Checkmark">
@@ -167,19 +140,40 @@ function printUsers (users) {
             }
         }
     }
+
+    userSelected = document.querySelector(".active-users .selected .name");
+    if ( userSelected === null || userSelected.innerText === "Todos") {
+        user.innerHTML = 
+        `<div class="user option selected" onclick="selectRecipient(this, 'Todos')">
+            <ion-icon name="people"></ion-icon>
+            <p class="name">Todos</p>
+            <img src="media/Checkmark.png" alt="Checkmark">
+        </div>` + user.innerHTML;
+        recipient = "Todos";
+        inputText();
+    } else {
+        user.innerHTML = 
+        `<div class="user option" onclick="selectRecipient(this, 'Todos')">
+            <ion-icon name="people"></ion-icon>
+            <p class="name">Todos</p>
+            <img src="media/Checkmark.png" alt="Checkmark">
+        </div>` + user.innerHTML;
+    }
+}
+
+function getUsers () {
+    const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v3/uol/participants");
+    promise.then(printUsers);
 }
 
 function selectRecipient (option, user) {
-    
     const userSelected = document.querySelector(".active-users .selected");
     if (userSelected !== null) {
         userSelected.classList.remove("selected");
     }
     option.classList.add("selected");
     recipient = user;
-
     inputText();
-
 }
 
 function selectMessageType (option, type) {
@@ -189,18 +183,12 @@ function selectMessageType (option, type) {
     }
     option.classList.add("selected");
     messageType = type;
-
     inputText();
 }
 
-function inputText () {
-    const receiver = document.querySelector(".receiver");
-    if (messageType === "message") {
-        receiver.innerHTML = `Enviando para ${recipient} (público)`
-    }
-    if (messageType === "private_message") {
-        receiver.innerHTML = `Enviando para ${recipient} (reservadamente)`
-    }
-
-    
+function toggleSidebar () {
+    const background = document.querySelector(".blur-background");
+    background.classList.toggle("hide")
+    const panel = document.querySelector(".chat-options");
+    panel.classList.toggle("hide")
 }

@@ -8,7 +8,7 @@ body {
     background-color: #F3F3F3;
 }
 
-.enter-screen {
+.login-screen {
     position: fixed;
     height: 100%;
     width: 100%;
@@ -19,13 +19,13 @@ body {
     align-items: center;
 }
 
-.enter-screen img {
+.login-screen img {
     width: 130px;
     height: 92px;
     margin-top: 72px;
 }
 
-.enter-screen input {
+.login-screen input {
     width: 260px;
     height: 55px;
     font-size: 18px;
@@ -38,11 +38,11 @@ body {
     margin-top: 92px;
 }
 
-.enter-screen input:focus {
+.login-screen input:focus {
     outline: none;
 }
 
-.enter-screen .enter {
+.login-screen .enter-button {
     width: 109px;
     height: 45px;
     background-color: #E7E7E7;
@@ -67,7 +67,6 @@ body {
     align-items: center;
     padding: 0 20px;
     filter: drop-shadow(0px 4px 6px rgb(0, 0, 0, 0.05));
-    
 }
 
 .top-bar  img {
@@ -78,7 +77,6 @@ body {
     width: 100%;
     height: 100%;
     padding: 100px 0;
-
 }
 
 .chat .message {
@@ -88,8 +86,6 @@ body {
     margin-bottom: 5px;
     font-size: 14px;
     font-family: 'Roboto', sans-serif;
-
-
 }
 
 .chat .message .time {
@@ -100,7 +96,7 @@ body {
     font-weight: 700;
 }
 
-.message-box {
+.user-message {
     width: 100%;
     height: 80px;
     position: fixed;
@@ -111,37 +107,34 @@ body {
     font-size: 35px;
     filter: drop-shadow(0px -4px 6px rgb(0, 0, 0, 0.05));
     font-family: 'Roboto', sans-serif;
-
 }
 
-.message-box .receiver {
+.user-message .message-status {
     font-size: 14px;
     font-weight: 300;
     margin-top: 10px;
 }
 
-.message-box ion-icon {
+.user-message ion-icon {
     position: absolute;
     right: 20px;
     top: 25px;
 }
 
-.message-box input {
+.user-message input {
     border: none;
     font-family: 'Roboto', sans-serif;
     color: #000000;
     font-size: 18px;
-    margin-top: 18px;
-    
+    margin-top: 18px; 
 }
 
-.message-box input::placeholder {
+.user-message input::placeholder {
     font-style: italic;
     color: #000000;
-    
 }
 
-.message-box input:focus {
+.user-message input:focus {
     outline: none;
 }
 
@@ -165,21 +158,20 @@ body {
     margin: 20px 0;
 }
 
-.chat-options .choice {
+.chat-options .option {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
     width: 100%;
     position: relative;
-    
 }
 
-.chat-options .choice ion-icon {
+.chat-options .option ion-icon {
     font-size: 20px;
     margin-right: 8px;
 }
 
-.chat-options .choice img {
+.chat-options .option img {
     display: none;
 }
 
